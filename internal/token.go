@@ -242,7 +242,8 @@ func RetrieveToken(ctx context.Context, clientID, clientSecret, tokenURL string,
 		token, err = doTokenRoundTrip(ctx, req)
 	}
 	if needsAuthStyleProbe && err == nil {
-		styleCache.setAuthStyle(tokenURL, authStyle)
+		// disable the auth style cache - it causes issues with Red Hat SSO and GitHub
+		// styleCache.setAuthStyle(tokenURL, authStyle)
 	}
 	// Don't overwrite `RefreshToken` with an empty value
 	// if this was a token refreshing request.
